@@ -1,0 +1,79 @@
+{
+  "name": "mnist",
+  "mode": "train",
+  "trainer_name": "BaseTrainer",
+  "batch_size": 16,
+  "shuffle": true,
+  "epochs": 100,
+  "input_shape": [28, 28],
+  "data_loader_name": "BaseDataloader",
+  "models_type": "classifier",
+  "builder_name": "SequenceModelBuilder",
+  "model_compile": {
+    "optimizer": "adam",
+    "loss": ["categorical_crossentropy"],
+    "metrics": ["categorical_accuracy"]
+  },
+  "model_config": [
+    {
+      "name": "Flatten",
+      "parameters": {}
+    },
+    {
+      "name": "Dense",
+      "parameters": {
+        "units": 32,
+        "activation": "swish",
+        "use_bias": false
+      }
+    },
+    {
+      "name": "Dense",
+      "parameters": {
+        "units": 16,
+        "activation": "swish",
+        "use_bias": false
+      }
+    },
+    {
+      "name": "Dense",
+      "parameters": {
+        "units": 32,
+        "activation": "swish",
+        "use_bias": false
+      }
+    },
+    {
+      "name": "Dense",
+      "parameters": {
+        "units": 16,
+        "activation": "swish",
+        "use_bias": false
+      }
+    },
+    {
+      "name": "Concatenate",
+      "parameters": {
+        "layer_index": [-1, -3]
+      }
+    },
+    {
+      "name": "Dense",
+      "parameters": {
+        "units": 10,
+        "activation": "softmax",
+        "use_bias": false
+      }
+    }
+  ],
+  "callbacks": [
+    {
+      "name": "ModelCheckpoint",
+      "parameters": {
+        "filepath": "exp_out/mnist/models/{epoch:04d}_{loss:.4f}_{val_loss:.4f}.h5",
+        "monitor": "val_loss",
+        "save_best_only": true
+      }
+    }
+  ]
+}
