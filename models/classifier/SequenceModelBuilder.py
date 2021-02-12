@@ -1,8 +1,9 @@
 import tensorflow as tf
 from config.BaseConfig import BaseConfig
+from . import BaseModelBuilder
 
 
-class SequenceModelBuilder:
+class SequenceModelBuilder(BaseModelBuilder):
 
     def __init__(self, config: BaseConfig):
         self.config = config

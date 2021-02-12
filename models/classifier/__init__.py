@@ -1,1 +1,2 @@
+from .BaseModelBuilder import BaseModelBuilder
 from .SequenceModelBuilder import SequenceModelBuilder
