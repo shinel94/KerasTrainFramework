@@ -6,9 +6,10 @@ from config.BaseConfig import BaseConfig
 class BaseDataloader:
     def __init__(self, config: BaseConfig):
         self.config = config
-        train, valid = tf.keras.datasets.mnist.load_data()
-        self.train_iter = self.DataGenerator(train[0], train[1], self.config.batch_size, self.config.shuffle)
-        self.valid_iter = self.DataGenerator(valid[0], valid[1], self.config.batch_size, self.config.shuffle)
+        train, test = tf.keras.datasets.mnist.load_data()
+        self.train_iter = self.DataGenerator(train[0][:int(0.8*60000)], train[1][:int(0.8*60000)], self.config.batch_size, self.config.shuffle)
+        self.valid_iter = self.DataGenerator(train[0][int(0.8*60000):], train[1][int(0.8*60000):], self.config.batch_size, self.config.shuffle)
+        self.test_iter = self.DataGenerator(test[0], test[1], self.config.batch_size, False)
 
     class DataGenerator(tf.keras.utils.Sequence):
         def __init__(self, data, label, batch_size, shuffle):

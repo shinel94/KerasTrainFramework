@@ -7,8 +7,13 @@ def train(config):
     trainer = getattr(__import__('trainer'), config.trainer_name)(config, builder.model, data_loader, callbacks)
     trainer.train()
 
+
 def evaluate(config):
-    pass
+    builder = getattr(getattr(__import__("models"), config.models_type), config.builder_name)(config)
+    data_loader = getattr(__import__("dataloader"), config.data_loader_name)(config)
+    builder.model.load_weights(config.eval_model_path)
+    evaluator = getattr(__import__('evaluator'), config.evaluator_name)(config, builder.model, data_loader)
+    evaluator.eval()
 
 
 if __name__ == '__main__':

@@ -1,7 +1,8 @@
 {
   "name": "mnist",
-  "mode": "train",
+  "mode": "evaluate",
   "trainer_name": "BaseTrainer",
+  "evaluator_name": "MultiClassificationEvaluator",
   "batch_size": 16,
   "shuffle": true,
   "epochs": 100,
@@ -75,5 +76,6 @@
         "save_best_only": true
       }
     }
-  ]
+  ],
+  "eval_model_path": "F:\\HY_Framework\\exp_out\\mnist\\models\\0021_0.1902_0.2178.h5"
 }
